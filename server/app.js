@@ -44,11 +44,12 @@ app.post("/send-mail", async (req, res) => {
   const mailOptions = {
     from: email,
     to: process.env.MAIL_OWNER,
-    subject: subject,
+    subject: (subject == "" ? name : subject) + " - Contacto",
     html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px;">
 <h2 style="text-align: center; color: #1f2937;"><span style="color: #003366;">Nuevo Mensaje de Contacto</span></h2>
 <hr style="border: none; border-top: 2px solid #f0f0f0; margin: 20px 0;" />
 <p><strong>Nombre:</strong> ${name}</p>
+<p><strong>Empresa:</strong> ${subject == "" ? "N/A" : subject}</p>
 <p><strong>Correo Electr&oacute;nico:</strong> <a text-decoration: none;" href="mailto:${email}">${email}</a></p>
 <p><strong>Mensaje:</strong></p>
 <div style="background-color: #f9f9f9; border-left: 4px solid #1F2937; padding: 10px; margin: 10px 0;">${message.replace(
@@ -60,9 +61,9 @@ app.post("/send-mail", async (req, res) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return res.status(500).json({ message: "Error al enviar el mensaje - "+error });
+      return res.status(500).json({ message: "Error al enviar el mensaje"});
     }
-    res.status(200).json({ message: "Correo enviado correctamente" });
+    res.status(200).json({ message: "Mensaje enviado correctamente" });
   });
 });
 

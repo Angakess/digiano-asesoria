@@ -7,8 +7,8 @@ export default function Contact() {
     email: "",
     message: "",
   });
-
-  //3798fcf9-ac16-467c-bce2-fda624b800b4
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState({ type: "", msg: "" });
 
   function handleOnChange(key, value) {
     setInfo({
@@ -19,28 +19,40 @@ export default function Contact() {
   async function handleOnSubmit(e) {
     e.preventDefault();
 
+    setLoading(true);
+
     try {
-      const res = await fetch("http://localhost:3000/send-mail",{
-      /* const res = await fetch(
-        "https://digiano-asesores-backend-285770e645e0.herokuapp.com/send-mail", */
-        //{
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(info),
-        }
-      );
+      const res = await fetch("http://localhost:3000/send-mail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(info),
+      });
 
       if (!res.ok) {
         // Manejo de errores si el servidor responde con un código no exitoso
-        console.error(`Error: ${res.status}`);
+        setResponse({
+          type: "error",
+          msg: "Error al enviar el mensaje, vuelva a intentarlo más tarde",
+        });
         return;
       }
 
       // Parsear el JSON solo si la respuesta es exitosa
       const result = await res.json();
-      console.log(result);
+      setResponse({ type: "success", msg: result.message });
+      setInfo({
+        name: "",
+        subject: "",
+        email: "",
+        message: "",
+      });
     } catch (error) {
-      console.error("Error al enviar la solicitud:", error);
+      setResponse({
+        type: "error",
+        msg: "Error al enviar el mensaje, vuelva a intentarlo más tarde",
+      });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -139,13 +151,43 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-[rgb(19,120,119)] to-teal-600 text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transform hover:-translate-y-0.5 transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(19,120,119)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full bg-gradient-to-r from-[rgb(19,120,119)] to-teal-600 text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transform hover:-translate-y-0.5 transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(19,120,119)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
               disabled={
-                info.name == "" || info.email == "" || info.message == ""
+                info.name === "" ||
+                info.email === "" ||
+                info.message === "" ||
+                loading
               }
             >
-              Enviar mensaje
+              {loading ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white mr-3"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 12a8 8 0 118 8 8 8 0 01-8-8zm0 0v.01M4 12h16"
+                  />
+                </svg>
+              ) : null}
+              {loading ? "Enviando..." : "Enviar mensaje"}
             </button>
+            {response.msg && (
+              <div
+                className={`mt-4 text-center text-sm font-medium ${
+                  response.type === "success"
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
+              >
+                {response.msg}
+              </div>
+            )}
           </form>
         </div>
       </div>
