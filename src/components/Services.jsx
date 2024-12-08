@@ -62,7 +62,7 @@ export default function Services() {
           <div className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-up">
             <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
               <img
-                src="https://i.postimg.cc/zDRHCMd1/img-servicio1.avif"
+                src="https://i.postimg.cc/sxTZ6BNH/img-servicio2.jpg"
                 alt=""
                 className="w-full h-full object-cover"
               />
@@ -94,17 +94,14 @@ export default function Services() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-800 group-hover:text-primary transition-colors duration-300">
-                Cotización de riesgos
+                Asesoramiento permanente
               </h3>
               <div className="space-y-4">
                 <p className="text-gray-600 leading-relaxed">
-                  Nos encargamos de evaluar las necesidades del cliente y
-                  ofrecer la mejor opción para asegurar sus bienes, preservando
-                  el valor actual y futuro de los mismos.
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  Nuestros asesores se encargan de cotizar el valor de mercado
-                  del bien para que no corras riesgos.
+                  Ideal para las empresas que necesitan eficiencia en las
+                  gestiones. En Digiano Asesores vas a tener contacto directo
+                  con tu productor para que puedas despejar dudas, cotizar en el
+                  momento y realizar el seguimiento de tus seguros vigentes.
                 </p>
               </div>
             </div>
@@ -112,7 +109,7 @@ export default function Services() {
           <div className="group relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-up">
             <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
               <img
-                src="https://i.postimg.cc/zDRHCMd1/img-servicio1.avif"
+                src="https://i.postimg.cc/tJqxNd2V/img-servicio3.jpg"
                 alt=""
                 className="w-full h-full object-cover"
               />
@@ -144,17 +141,14 @@ export default function Services() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-800 group-hover:text-primary transition-colors duration-300">
-                Cotización de riesgos
+                Gestión de siniestros
               </h3>
               <div className="space-y-4">
                 <p className="text-gray-600 leading-relaxed">
-                  Nos encargamos de evaluar las necesidades del cliente y
-                  ofrecer la mejor opción para asegurar sus bienes, preservando
-                  el valor actual y futuro de los mismos.
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  Nuestros asesores se encargan de cotizar el valor de mercado
-                  del bien para que no corras riesgos.
+                  En Digiano Asesores ofrecemos soluciones personalizadas en
+                  seguros y asesoramiento financiero, garantizando protección y
+                  tranquilidad para familias, empresas y particulares en
+                  Argentina y Uruguay.
                 </p>
               </div>
             </div>

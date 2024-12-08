@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import logo from '../assets/logo_sin_fondo.png'
 
 export default function Header() {
   // State to manage the navbar's visibility
@@ -24,9 +25,10 @@ export default function Header() {
   return (
     <div className="fixed left-0 right-0 z-[9999] bg-[#1F2937] flex justify-between items-center h-24 mx-auto px-4 text-white">
       {/* Logo */}
-      <h1 className="w-full text-3xl font-bold text-[#ffffff]">
+      <img src={logo} alt="Digiano Asesores" height="90" width="200"></img>
+      {/* <h1 className="w-full text-3xl font-bold text-[#ffffff]">
         DigianoAsesores
-      </h1>
+      </h1> */}
 
       {/* Desktop Navigation */}
       <ul className="hidden md:flex">
