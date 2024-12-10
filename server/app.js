@@ -6,15 +6,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const CAPTCHA_SERVER_KEY = process.env.CAPTCHA_SERVER_KEY;
 
 app.use(
   cors({
-    origin:"http://localhost:5173",
-    /* origin: "https://franco-asesores.netlify.app",  */// URL del frontend durante el desarrollo
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"], // Métodos permitidos
     allowedHeaders: ["Content-Type"],
   })
@@ -61,10 +60,30 @@ app.post("/send-mail", async (req, res) => {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return res.status(500).json({ message: "Error al enviar el mensaje"});
+      return res.status(500).json({ message: "Error al enviar el mensaje" });
     }
     res.status(200).json({ message: "Mensaje enviado correctamente" });
   });
+});
+
+app.post("/verify", async (req, resp) => {
+  const { captchaValue } = req.body;
+  try {
+    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        secret: CAPTCHA_SERVER_KEY,
+        response: captchaValue,
+      }),
+    });
+    const data = await res.json();
+    resp.send(data);
+  } catch (error) {
+    resp.status(500).send({ message: "Error al verificar el reCAPTCHA" });
+  }
 });
 
 // Ruta para manejar otras solicitudes (SPA)

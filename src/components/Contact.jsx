@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Contact() {
   const [info, setInfo] = useState({
@@ -9,6 +10,7 @@ export default function Contact() {
   });
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState({ type: "", msg: "" });
+  const recaptcha = useRef();
 
   function handleOnChange(key, value) {
     setInfo({
@@ -20,6 +22,35 @@ export default function Contact() {
     e.preventDefault();
 
     setLoading(true);
+
+    const captchaValue = recaptcha.current.getValue();
+    if (!captchaValue) {
+      setResponse({
+        type: "error",
+        msg: "Por favor verifique que no sea un robot",
+      });
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await fetch("http://localhost:3000/verify", {
+        method: "POST",
+        body: JSON.stringify({ captchaValue }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (!data.success) {
+        setResponse({ type: "error", msg: "Error al verificar el reCAPTCHA" });
+        setLoading(false);
+        return;
+      }
+    } catch (error) {
+      setResponse({ type: "error", msg: "Error al verificar el reCAPTCHA" });
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await fetch("http://localhost:3000/send-mail", {
@@ -46,6 +77,7 @@ export default function Contact() {
         email: "",
         message: "",
       });
+      recaptcha.current.reset();
     } catch (error) {
       setResponse({
         type: "error",
@@ -59,16 +91,16 @@ export default function Contact() {
   return (
     <div
       id="contacto"
-      className="section min-h-screen bg-gradient-to-b from-white to-gray-50 py-16"
+      className="section min-h-screen bg-gradient-to-b from-white to-gray-50 py-8"
     >
-      <div className="container mx-auto px-4 max-w-2xl">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
+      <div className="container mx-auto max-h-[calc(100vh-100px)] px-4 max-w-2xl">
+        <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">
           Contáctanos
         </h2>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-center text-gray-600 mb-4">
           Déjanos tu mensaje y un asesor se comunicará contigo a la brevedad
         </p>
-        <div className="bg-white rounded-2xl shadow-xl p-8 transform hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-xl p-5 transform hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
           <form className="space-y-6" onSubmit={(e) => handleOnSubmit(e)}>
             <div>
               <label
@@ -101,7 +133,7 @@ export default function Contact() {
                 type="text"
                 id="business"
                 name="subject"
-                placeholder="Nombre de su empresa"
+                placeholder="Nombre de su empresa (opcional)"
                 className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[rgb(19,120,119)] focus:ring-2 focus:ring-[rgb(19,120,119)] focus:ring-opacity-20 transition-all duration-200"
                 onChange={(e) => {
                   handleOnChange(e.target.name, e.target.value);
@@ -148,6 +180,12 @@ export default function Contact() {
                 }}
                 value={info.message}
               ></textarea>
+            </div>
+            <div className="flex justify-center">
+              <ReCAPTCHA
+                ref={recaptcha}
+                sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
+              ></ReCAPTCHA>
             </div>
             <button
               type="submit"
