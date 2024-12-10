@@ -13,7 +13,7 @@ const CAPTCHA_SERVER_KEY = process.env.CAPTCHA_SERVER_KEY;
 
 app.use(
   cors({
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"], // Métodos permitidos
     allowedHeaders: ["Content-Type"],
   })
