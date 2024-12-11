@@ -40,7 +40,7 @@ function App() {
           <div data-aos="fade-up">
             <Testimonials />
           </div>
-          <div data-aos="fade-up">
+          <div>
             <Contact />
           </div>
         </main>
