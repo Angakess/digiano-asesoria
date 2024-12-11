@@ -93,7 +93,7 @@ export default function Contact() {
       id="contacto"
       className="section min-h-screen bg-gradient-to-b from-white to-gray-50 py-8"
     >
-      <div className="container mx-auto max-h-[calc(100vh-100px)] px-4 max-w-2xl">
+      <div className="container mx-auto px-4 max-w-2xl">
         <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">
           Contáctanos
         </h2>
