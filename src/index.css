@@ -3,5 +3,11 @@
 @tailwind utilities;
 
 .section {
-    scroll-margin-top: 96px;
+  scroll-margin-top: 96px;
+}
+
+@keyframes fadeOutIn {
+  0%, 5% { opacity: 0; }    /* Oscuro al inicio */
+  10%, 95% { opacity: 1; }  /* Gradualmente se aclara y permanece visible */
+  100% { opacity: 0; }      /* Oscurece nuevamente al final */
 }
