@@ -187,6 +187,17 @@ export default function Contact() {
                 sitekey={import.meta.env.VITE_CAPTCHA_SITE_KEY}
               ></ReCAPTCHA>
             </div>
+            {response.msg && (
+              <div
+                className={`mt-4 text-center text-sm font-medium ${
+                  response.type === "success"
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
+              >
+                {response.msg}
+              </div>
+            )}
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-[rgb(19,120,119)] to-teal-600 text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transform hover:-translate-y-0.5 transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(19,120,119)] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
@@ -215,17 +226,6 @@ export default function Contact() {
               ) : null}
               {loading ? "Enviando..." : "Enviar mensaje"}
             </button>
-            {response.msg && (
-              <div
-                className={`mt-4 text-center text-sm font-medium ${
-                  response.type === "success"
-                    ? "text-green-500"
-                    : "text-red-500"
-                }`}
-              >
-                {response.msg}
-              </div>
-            )}
           </form>
         </div>
       </div>
