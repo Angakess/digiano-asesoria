@@ -1,10 +1,10 @@
-import video1 from "../assets/waves.mp4"
+import video1 from "../assets/waves_21s.mp4"
 
 export default function Hero() {
   return (
     <section id="inicio" className="relative h-screen overflow-hidden">
       <div className="absolute inset-0 w-full h-full transition-opacity duration-1000 opacity-100 bg-black">
-        <video className="object-cover w-full h-full animate-[fadeOutIn_21.12s_infinite]" src={video1} loop autoPlay muted ></video>
+        <video className="object-cover w-full h-full animate-[fadeOutIn_21.04s_infinite]" src={video1} loop autoPlay muted ></video>
       </div>
       <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div className="text-center text-white sapce-y-8">
