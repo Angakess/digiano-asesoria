@@ -1,0 +1,21 @@
+services:
+
+  backend:
+    build: ./server
+    container_name: digiano_server
+    env_file:
+      - ./server/.env
+    ports:
+      - "3000:3000"
+    restart: always
+
+  frontend:
+    build: ./client
+    container_name: digiano_client
+    env_file:
+      - ./client/.env
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+    restart: always

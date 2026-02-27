@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Contact() {
@@ -33,7 +33,7 @@ export default function Contact() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:3000/verify", {
+      const res = await fetch("/api/verify", {
         method: "POST",
         body: JSON.stringify({ captchaValue }),
         headers: {
@@ -53,7 +53,7 @@ export default function Contact() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/send-mail", {
+      const res = await fetch("/api/send-mail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(info),
