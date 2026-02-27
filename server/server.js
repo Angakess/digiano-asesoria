@@ -107,6 +107,8 @@ app.post("/verify", async (req, resp) => {
 
     const data = await res.json();
 
+    console.log("CAPTCHA RESPONSE:", data);
+
     resp.send(data);
 
   } catch (error) {
