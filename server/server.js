@@ -111,6 +111,7 @@ app.post("/verify", async (req, resp) => {
 
   } catch (error) {
 
+    console.log(error)
     resp.status(500).send({
       message:
         "Error al verificar el captcha",

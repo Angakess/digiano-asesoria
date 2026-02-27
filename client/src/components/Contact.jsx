@@ -47,6 +47,7 @@ export default function Contact() {
         return;
       }
     } catch (error) {
+      console.log(error);
       setResponse({ type: "error", msg: "Error al verificar el reCAPTCHA" });
       setLoading(false);
       return;
