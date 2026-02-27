@@ -49,17 +49,18 @@ app.post("/api/send-mail", async (req, res) => {
   });
 
   const mailOptions = {
-    from: email,
+    from: "Web Digiano <web@digianoasesores.com>",
     to: process.env.MAIL_OWNER,
+    replyTo: email,
     subject: (subject === "" ? name : subject) + " - Contacto",
     html: `
-      <h2>Nuevo mensaje</h2>
-      <p><b>Nombre:</b> ${name}</p>
-      <p><b>Email:</b> ${email}</p>
-      <p><b>Empresa:</b> ${subject || "N/A"}</p>
-      <p><b>Mensaje:</b></p>
-      <p>${message.replace(/\n/g, "<br>")}</p>
-    `,
+<h2>Nuevo mensaje</h2>
+<p><b>Nombre:</b> ${name}</p>
+<p><b>Email:</b> ${email}</p>
+<p><b>Empresa:</b> ${subject || "N/A"}</p>
+<p><b>Mensaje:</b></p>
+<p>${message.replace(/\n/g, "<br>")}</p>
+`,
   };
 
   try {
