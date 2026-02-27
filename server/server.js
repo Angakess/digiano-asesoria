@@ -34,7 +34,7 @@ Enviar mail
 Endpoint:
 POST /send-mail
 */
-app.post("/send-mail", async (req, res) => {
+app.post("/api/send-mail", async (req, res) => {
   const { name, email, subject, message } = req.body;
 
   const transporter = nodemailer.createTransport({
@@ -84,7 +84,7 @@ Verificar captcha
 Endpoint:
 POST /verify
 */
-app.post("/verify", async (req, resp) => {
+app.post("/api/verify", async (req, resp) => {
 
   const { captchaValue } = req.body;
 
