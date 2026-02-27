@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:8081", // desarrollo
-      "https://digianoasesores.duckdns.org" // producción
+      process.env.BASE_URL // producción
     ],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
